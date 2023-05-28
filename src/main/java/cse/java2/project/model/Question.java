@@ -1,25 +1,57 @@
 package cse.java2.project.model;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "questions")
 public class Question {
-
     @Id
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
+    @Column(name = "answered")
+    private Boolean answered;
+
+    @Column(name = "answer_count")
+    private Integer answerCount;
+
+    @Column(name = "title")
     private String title;
 
-    public Long getId() {
-        return id;
+    @Column(name = "creation_date")
+    private Integer creationDate;
+
+    @Column(name = "tags")
+    private String tags;
+
+    @Column(name = "user_id")
+    private Integer userID;
+
+    @Column(name = "score")
+    private Integer score;
+
+    public Integer getScore() {
+        return score;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Integer getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Integer creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getTitle() {
@@ -29,5 +61,49 @@ public class Question {
     public void setTitle(String title) {
         this.title = title;
     }
-// getters and setters
+
+    public Integer getAnswerCount() {
+        return answerCount;
+    }
+
+    public void setAnswerCount(Integer answerCount) {
+        this.answerCount = answerCount;
+    }
+
+    public Boolean getAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(Boolean answered) {
+        this.answered = answered;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", answered=" + answered +
+                ", answerCount=" + answerCount +
+                ", title='" + title + '\'' +
+                ", creationDate=" + creationDate +
+                ", tags='" + tags + '\'' +
+                ", userID=" + userID +
+                '}';
+    }
 }
