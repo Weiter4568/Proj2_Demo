@@ -9,11 +9,6 @@ function initButtons() {
 }
 
 function showComponent(component) {
-    const numberContainer = document.getElementById('number-container')
-    const answerContainer = document.getElementById('accept-container')
-    const tagContainer = document.getElementById('tag-container')
-    const userContainer = document.getElementById('user-container')
-    // 根据选择的组件名称进行逻辑判断，并在组件容器中显示相应的内容
     if (component === 'component1') {
         getPieChart('number-container', "No-Answer-Questions Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/unansweredPercentage");
     } else if (component === 'component2') {
@@ -71,7 +66,7 @@ function getPieChart(containerName, title, subtitle, url) {
         }
         for (let i = 0; i < data["name"].length; i++) {
             const name = data["name"][i]
-            const value = data["value"][i]
+            const value = data["value"][i].toFixed(2)
             option.series[0].data.push({value, name})
         }
         myChart.setOption(option)
@@ -141,7 +136,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, tooltip: {
                 trigger: 'axis'
             }, xAxis: [{
-                data: data["name"]
+                data: data["name"].slice(20)
             }, {
                 data: data["name"], gridIndex: 1
             }], yAxis: [{}, {
@@ -151,7 +146,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, {
                 top: '100%'
             }], series: {
-                type: 'line', showSymbol: false, data: data["value"],
+                type: 'line', showSymbol: false, data: data["value"].slice(20).toFixed(2),
             }
         }
         myChart.setOption(option)
@@ -172,7 +167,7 @@ function getBarChart(containerName, title, subtitle, url) {
             }, yAxis: {
                 type: 'value'
             }, series: [{
-                data: data["value"], type: 'bar'
+                data: data["value"].slice(20).toFixed(2), type: 'bar'
             }]
         }
         myChart.setOption(option)
