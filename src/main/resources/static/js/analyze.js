@@ -64,7 +64,7 @@ function getPieChart(containerName, title, subtitle, url) {
                 }, data: []
             }]
         }
-        for (let i = 0; i < data["name"].length; i++) {
+        for (let i = 0; i < Math.min(data["name"].length, 20); i++) {
             const name = data["name"][i]
             const value = data["value"][i].toFixed(2)
             option.series[0].data.push({value, name})
@@ -139,7 +139,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, xAxis: [{
                 data: data["name"].slice(0, 20)
             }, {
-                data: data["name"], gridIndex: 1
+                data: data["name"].slice(0, 20), gridIndex: 1
             }], yAxis: [{}, {
                 gridIndex: 1
             }], grid: [{
@@ -164,7 +164,7 @@ function getBarChart(containerName, title, subtitle, url) {
             }, tooltip: {
                 trigger: 'axis'
             }, xAxis: {
-                type: 'category', data: data["name"]
+                type: 'category', data: data["name"].slice(0, 20)
             }, yAxis: {
                 type: 'value'
             }, series: [{
