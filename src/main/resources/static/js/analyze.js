@@ -22,15 +22,15 @@ function showComponent(component) {
     } else if (component === 'component6') {
         getPieChart('accept-container', "Upvote Comparison Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/nonAcceptedHigherUpvotesPercentage");
     } else if (component === 'component7') {
-        getBarChart('tag-container', "Tags with 'JAVA'", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tags");
+        getRotateBarChart('tag-container', "Tags with 'JAVA'", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tags");
     } else if (component === 'component8') {
-        getLineChart('tag-container', "Tags for more Upvote", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tag-combos");
+        getPieChart('tag-container', "Tags for more Upvote", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tag-combos");
     } else if (component === 'component9') {
-        getLineChart('tag-container', "Tags for more Views", "Total Questions: 1000", "http://localhost:9090/api/questions/most-viewed-tag-combos");
+        getPieChart('tag-container', "Tags for more Views", "Total Questions: 1000", "http://localhost:9090/api/questions/most-viewed-tag-combos");
     } else if (component === 'componentX') {
-        getLineChart('user-container', "Distribution of User Thread Count", "Total Questions: 1000", "http://localhost:9090/api/questions/user-thread-count-distribution");
+        getRotateBarChart('user-container', "Distribution of User Thread Count", "Total Questions: 1000", "http://localhost:9090/api/questions/user-thread-count-distribution");
     } else if (component === 'componentY') {
-        getBarChart('user-container', "Distribution of who Post Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/user-answer-count-distribution");
+        getDoubleRotateBarChart('user-container', "Distribution of who Post Answers", "Distribution of who Post Comments", "http://localhost:9090/api/questions/user-answer-count-distribution", "http://localhost:9090/api/questions/user-comment-count-distribution");
     } else if (component === 'componentZ') {
         getPieChart('user-container', "Distribution of who Post Comments", "Total Questions: 1000", "http://localhost:9090/api/questions/most-active-users");
     }
@@ -47,11 +47,11 @@ function getPieChart(containerName, title, subtitle, url) {
         const myChart = echarts.init(document.getElementById(containerName))
         const option = {
             title: {
-                text: title, subtext: subtitle, left: 'center'
+                text: title, left: 'center'
             }, tooltip: {
                 trigger: 'item'
             }, legend: {
-                top: '5%', left: 'center', top: '50px'
+                left: 'center', top: '50px'
             }, series: [{
                 name: 'Access From', type: 'pie', radius: ['40%', '70%'], avoidLabelOverlap: false, itemStyle: {
                     borderRadius: 10, borderColor: '#fff', borderWidth: 2
@@ -133,7 +133,7 @@ function getLineChart(containerName, title, subtitle, url) {
             visualMap: {
                 show: false, type: 'continuous', seriesIndex: 0, min: 0, max: 400
             }, title: {
-                left: 'center', text: title, subtext: subtitle
+                left: 'center', text: title
             }, tooltip: {
                 trigger: 'axis'
             }, xAxis: [{
@@ -160,12 +160,73 @@ function getBarChart(containerName, title, subtitle, url) {
         const myChart = echarts.init(document.getElementById(containerName))
         const option = {
             title: {
-                text: title, subtext: subtitle, left: 'center'
+                text: title, left: 'center'
             }, tooltip: {
                 trigger: 'axis'
             }, xAxis: {
-                type: 'category', data: data["name"].slice(0, 20)
+                axisLabel: {
+                    interval: 'auto', rotate: 45
+                }, type: 'category', data: data["name"].slice(0, 20)
             }, yAxis: {
+
+                type: 'value'
+            }, series: [{
+                data: data["value"].slice(0, 20).map(num => num.toFixed(2)), type: 'bar'
+            }]
+        }
+        myChart.setOption(option)
+    })
+}
+
+async function getDoubleRotateBarChart(containerName, title1, title2, url1, url2) {
+    const promises = [await fetchJson(url1), await fetchJson(url2)]
+    const [data1, data2] = await Promise.all(promises);
+    console.log(data1);
+    console.log(data2);
+    const option = {
+        title: [{
+            text: title1, left: 'center'
+        }, {
+            text: title2, left: 'center'
+        }], tooltip: [{
+            trigger: 'axis'
+        }, {
+            trigger: 'axis'
+        }], yAxis: [{
+            type: 'category', data: data1["name"].slice(0, 20), axisLabel: {
+                interval: 'auto', rotate: 45
+            }
+        }, {
+            type: 'category', data: data2["name"].slice(0, 20), axisLabel: {
+                interval: 'auto', rotate: 45
+            }
+        }], xAxis: [{
+            type: 'value'
+        }, {
+            type: 'value'
+        }], series: [{
+            data: data1["value"].slice(0, 20).map(num => num.toFixed(2)), type: 'bar'
+        }, {
+            data: data2["value"].slice(0, 20).map(num => num.toFixed(2)), type: 'bar'
+        }]
+    }
+    myChart.setOption(option)
+}
+
+function getRotateBarChart(containerName, title, subtitle, url) {
+    fetchJson(url).then(data => {
+        echarts.dispose(document.getElementById(containerName))
+        const myChart = echarts.init(document.getElementById(containerName))
+        const option = {
+            title: {
+                text: title, left: 'center'
+            }, tooltip: {
+                trigger: 'axis'
+            }, yAxis: {
+                type: 'category', data: data["name"].slice(0, 20), axisLabel: {
+                    interval: 'auto', rotate: 45
+                }
+            }, xAxis: {
                 type: 'value'
             }, series: [{
                 data: data["value"].slice(0, 20).map(num => num.toFixed(2)), type: 'bar'
