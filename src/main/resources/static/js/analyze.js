@@ -30,7 +30,9 @@ function showComponent(component) {
     } else if (component === 'componentX') {
         getRotateBarChart('user-container', "Distribution of User Thread Count", "Total Questions: 1000", "http://localhost:9090/api/questions/user-thread-count-distribution");
     } else if (component === 'componentY') {
-        getDoubleRotateBarChart('user-container', "Distribution of who Post Answers", "Distribution of who Post Comments", "http://localhost:9090/api/questions/user-answer-count-distribution", "http://localhost:9090/api/questions/user-comment-count-distribution");
+        getRotateBarChart('user-container', "Distribution of who Post Answers", "Distribution of who Comment Comments", "http://localhost:9090/api/questions/user-answer-count-distribution");
+    } else if (component === 'componentA') {
+        getRotateBarChart('user-container', "Distribution of who Comment Answers", "Distribution of who Comment Comments", "http://localhost:9090/api/questions/user-comment-count-distribution");
     } else if (component === 'componentZ') {
         getPieChart('user-container', "Active User Count", "Total Questions: 1000", "http://localhost:9090/api/questions/most-active-users");
     }
