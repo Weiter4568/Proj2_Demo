@@ -2,9 +2,14 @@ package cse.java2.project.JSON_Model;
 
 import java.util.List;
 
-public class Q5 {
+public class ReturnJSON {
     List<String> name;
-    List<Integer> value;
+    List<Double> value;
+
+    public ReturnJSON(List<String> names, List<Double> values) {
+        this.name = names;
+        this.value = values;
+    }
 
     public List<String> getName() {
         return name;
@@ -14,11 +19,11 @@ public class Q5 {
         this.name = name;
     }
 
-    public List<Integer> getValue() {
+    public List<Double> getValue() {
         return value;
     }
 
-    public void setValue(List<Integer> value) {
+    public void setValue(List<Double> value) {
         this.value = value;
     }
 }

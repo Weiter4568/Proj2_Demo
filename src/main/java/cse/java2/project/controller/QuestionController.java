@@ -64,5 +64,30 @@ public class QuestionController {
         return questionService.getMostUpvotedTags();
     }
 
+    @GetMapping("/most-upvoted-tag-combos")
+    @ResponseBody
+    public String getMostUpvotedTagCombos() {
+        return questionService.getMostUpvotedTagCombos();
+    }
+
+    @GetMapping("/most-viewed-tag-combos")
+    @ResponseBody
+    public String getMostViewedTagCombos() {
+        return questionService.getMostViewedTagCombos();
+    }
+
+    @GetMapping("/user-answer-count-distribution")
+    @ResponseBody
+    public String getUserAnswerCountDistribution() {
+        return questionService.getUserAnswerCountDistribution();
+    }
+
+    @GetMapping("/user-comment-count-distribution")
+    @ResponseBody
+    public String getUserCommentCountDistribution() {
+        return questionService.getUserCommentCountDistribution();
+    }
+
+
 
 }

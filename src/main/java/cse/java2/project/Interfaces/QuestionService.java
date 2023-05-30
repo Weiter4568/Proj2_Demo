@@ -8,4 +8,9 @@ public interface QuestionService {
     String getAcceptedAnswerInterval();
     String getPercentageOfQuestionsWhereNonAcceptedAnswerHasHigherScore();
     String getMostUpvotedTags();
+    String getMostUpvotedTagCombos();
+    String getMostViewedTagCombos();
+    String getUserAnswerCountDistribution();
+    String getUserCommentCountDistribution();
+
 }

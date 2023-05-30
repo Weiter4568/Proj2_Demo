@@ -15,7 +15,7 @@ function showComponent(component) {
     const userContainer = document.getElementById('user-container')
     // 根据选择的组件名称进行逻辑判断，并在组件容器中显示相应的内容
     if (component === 'component1') {
-        getPieChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
+        getPieChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/api/questions/unansweredPercentage");
     } else if (component === 'component2') {
         getLineChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
     } else if (component === 'component3') {
