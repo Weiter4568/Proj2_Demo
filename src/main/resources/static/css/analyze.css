@@ -1,0 +1,26 @@
+.hr {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(228, 228, 228);
+}
+
+#number-button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#accept-button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#tag-button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#user-button-group {
+    display: flex;
+    justify-content: center;
+}

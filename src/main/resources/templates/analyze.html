@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/975eb06a25.js" crossorigin="anonymous"></script>
+    <script src="/js/analyze.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2/dist/echarts-wordcloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,100,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/cirrus-ui/dist/cirrus.min.css" rel="stylesheet">
+    <link href="/css/analyze.css" rel="stylesheet">
+    <title>StackOverflowAnalyze</title>
+</head>
+<body>
+<h1 class=font-alt style="text-align:center">Stack Overflow Analyze</h1>
+
+<h4 class=font-alt>Number of Answers</h4>
+<div id="number-button-group">
+    <button class="component-button bg-blue-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component1">No Answer Percentage</button>
+    <button class="component-button bg-blue-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component2">Average & Max Answer Count</button>
+    <button class="component-button bg-blue-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component3">Distribution of Answer Count</button>
+</div>
+<div id="number-container" style="height: 100%;width: 100%"></div>
+
+<h4 class=font-alt>Accepted Answers</h4>
+<div id="accept-button-group">
+    <button class="component-button bg-orange-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component4">No Answer Percentage</button>
+    <button class="component-button bg-orange-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component5">Average & Max Answer Count</button>
+    <button class="component-button bg-orange-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component6">Distribution of Answer Count</button>
+</div>
+<div id="accept-container" style="height: 100%;width: 100%"></div>
+
+<h4 class=font-alt>Tags</h4>
+<div id="tag-button-group">
+    <button class="component-button bg-indigo-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component7">No Answer Percentage</button>
+    <button class="component-button bg-indigo-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component8">Average & Max Answer Count</button>
+    <button class="component-button bg-indigo-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="component9">Distribution of Answer Count</button>
+</div>
+<div id="tag-container" style="height: 100%;width: 100%"></div>
+
+<h4 class=font-alt>Users</h4>
+<div id="user-button-group">
+    <button class="component-button bg-pink-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="componentX">No Answer Percentage</button>
+    <button class="component-button bg-pink-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="componentY">Average & Max Answer Count</button>
+    <button class="component-button bg-pink-100 u-round-full u-shadow-md px-4 py-3 m-2" data-component="componentZ">Distribution of Answer Count</button>
+</div>
+<div id="user-container" style="height: 100%;width: 100%"></div>
+<script>initButtons()</script>
+</body>
+</html>
