@@ -1,5 +1,11 @@
 package cse.java2.project.service;
 
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import com.google.gson.Gson;
 import cse.java2.project.Interfaces.QuestionService;
 import cse.java2.project.JSON_Model.*;
@@ -377,12 +383,62 @@ public class QuestionServiceImpl implements QuestionService {
         List<String> names = new ArrayList<>();
         List<Double> values = new ArrayList<>();
         for (Map.Entry<String, Long> m : userActivity.entrySet()) {
-            names.add(m.getKey());
-            values.add(m.getValue().doubleValue());
+            if (!m.getKey().equals("0")) {
+                names.add(m.getKey());
+                values.add(m.getValue().doubleValue());
+            }
         }
         ReturnJSON returnJSON = new ReturnJSON(names, values);
         return getJSONString(returnJSON);
     }
+
+    @Override
+    public String getFrequentAPIs() {
+        Query query = em.createNativeQuery("SELECT c.code_block From codeblocks c;");
+        List<String> codeBlocks = query.getResultList();
+        // Initialize a map to store API counts
+        Map<String, Integer> apiCounts = new HashMap<>();
+
+        for (String codeBlock : codeBlocks) {
+            try {
+                // Parse the code block into an AST
+                JavaParser javaParser = new JavaParser();
+                CompilationUnit cu = javaParser.parse(codeBlock).getResult().orElseThrow();
+
+                // Find all method calls and class references
+                List<MethodDeclaration> methodCalls = cu.findAll(MethodDeclaration.class);
+                List<ClassOrInterfaceType> classReferences = cu.findAll(ClassOrInterfaceType.class);
+
+                // Update the API counts
+                for (MethodDeclaration methodCall : methodCalls) {
+                    String methodName = methodCall.getNameAsString();
+                    apiCounts.put(methodName, apiCounts.getOrDefault(methodName, 0) + 1);
+                }
+                for (ClassOrInterfaceType classReference : classReferences) {
+                    String className = classReference.getNameAsString();
+                    apiCounts.put(className, apiCounts.getOrDefault(className, 0) + 1);
+                }
+            } catch (Exception e) {
+                // Ignore exceptions during parsing
+            }
+        }
+
+        // Sort the API counts in descending order
+        List<Map.Entry<String, Integer>> sortedApiCounts = new ArrayList<>(apiCounts.entrySet());
+        sortedApiCounts.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        List<String> names = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+
+        for(Map.Entry<String, Integer> m : sortedApiCounts) {
+            names.add(m.getKey());
+            values.add((double)m.getValue());
+        }
+        ReturnJSON returnJSON = new ReturnJSON(names, values);
+        return getJSONString(returnJSON);
+    }
+
+
 
     // 将回答或评论的分布返回为JSON字符串
     private String getString(Map<Integer, Long> distribution, Map<String, Long> commentCountsPerUser) {

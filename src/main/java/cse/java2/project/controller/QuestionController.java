@@ -100,5 +100,11 @@ public class QuestionController {
         return questionService.getMostActiveUsers();
     }
 
+    @GetMapping("/api-stats")
+    @ResponseBody
+    public String getFrequentAPIs() {
+        return questionService.getFrequentAPIs();
+    }
+
 
 }

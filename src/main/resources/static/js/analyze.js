@@ -193,7 +193,7 @@ async function getDoubleRotateBarChart(containerName, title1, title2, url1, url2
         }, {
             trigger: 'axis', gridIndex: 1
         }], yAxis: [{
-            type: 'category', data: data1["name"].slice(0, 20).reverse(), axisLabel: {
+            type: 'category', data: data1.then()data1["name"].slice(0, 20).reverse(), axisLabel: {
                 interval: 'auto', rotate: 45
             }
         }, {
