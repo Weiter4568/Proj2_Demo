@@ -15,9 +15,9 @@ function showComponent(component) {
     const userContainer = document.getElementById('user-container')
     // 根据选择的组件名称进行逻辑判断，并在组件容器中显示相应的内容
     if (component === 'component1') {
-        getPieChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/api/questions/unansweredPercentage");
+        getPieChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
     } else if (component === 'component2') {
-        getLineChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
+        getPanel('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/b");
     } else if (component === 'component3') {
         getBarChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
     } else if (component === 'component4') {
@@ -48,7 +48,6 @@ async function fetchJson(url) {
 
 function getPieChart(containerName, title, subtitle, url) {
     fetchJson(url).then(data => {
-        console.log(data)
         echarts.dispose(document.getElementById(containerName))
         const myChart = echarts.init(document.getElementById(containerName))
         const option = {
@@ -79,11 +78,60 @@ function getPieChart(containerName, title, subtitle, url) {
     }).catch(error => {
         console.log(error)
     })
-    return true
+}
+
+function getPanel(containerName, title, subtitle, url, max) {
+    fetchJson(url).then(data => {
+        echarts.dispose(document.getElementById(containerName))
+        const myChart = echarts.init(document.getElementById(containerName))
+        const gaugeData = [{
+            value: data["value"][0].toFixed(2), name: 'Average Answers', title: {
+                offsetCenter: ['-30%', '80%']
+            }, detail: {
+                offsetCenter: ['-30%', '95%']
+            }
+        }, {
+            value: data["value"][1].toFixed(2), name: 'Max Answers', title: {
+                offsetCenter: ['30%', '80%']
+            }, detail: {
+                offsetCenter: ['30%', '95%']
+            }
+        }];
+        const option = {
+            series: [{
+                max: max, type: 'gauge', anchor: {
+                    show: true, showAbove: true, size: 18, itemStyle: {
+                        color: '#FAC858'
+                    }
+                }, pointer: {
+                    icon: 'path://M2.9,0.7L2.9,0.7c1.4,0,2.6,1.2,2.6,2.6v115c0,1.4-1.2,2.6-2.6,2.6l0,0c-1.4,0-2.6-1.2-2.6-2.6V3.3C0.3,1.9,1.4,0.7,2.9,0.7z',
+                    width: 8,
+                    length: '80%',
+                    offsetCenter: [0, '8%']
+                }, progress: {
+                    show: true, overlap: true, roundCap: true
+                }, axisLine: {
+                    roundCap: true
+                }, data: gaugeData, title: {
+                    fontSize: 14
+                }, detail: {
+                    width: 40,
+                    height: 14,
+                    fontSize: 14,
+                    color: '#fff',
+                    backgroundColor: 'inherit',
+                    borderRadius: 3,
+                    formatter: '{value}'
+                }
+            }]
+        }
+        myChart.setOption(option)
+    })
 }
 
 function getLineChart(containerName, title, subtitle, url) {
     fetchJson(url).then(data => {
+        echarts.dispose(document.getElementById(containerName))
         const myChart = echarts.init(document.getElementById(containerName))
         const option = {
             visualMap: {
@@ -112,6 +160,7 @@ function getLineChart(containerName, title, subtitle, url) {
 
 function getBarChart(containerName, title, subtitle, url) {
     fetchJson(url).then(data => {
+        echarts.dispose(document.getElementById(containerName))
         const myChart = echarts.init(document.getElementById(containerName))
         const option = {
             title: {
