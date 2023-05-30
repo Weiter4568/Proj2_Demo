@@ -223,6 +223,41 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     // Q10:
+    @Override
+    public String getUserThreadDistribution() {
+        Query query = em.createNativeQuery("SELECT post_id, COUNT(DISTINCT user_id)FROM (SELECT id as post_id, user_id FROM questions UNION ALL SELECT question_id as post_id, user_id FROM answers UNION ALL SELECT post_id, user_id FROM comments) AS all_contributions GROUP BY post_id;");
+        List<Object[]> results = query.getResultList();
+        Map<String, Integer> distribution = new HashMap<>();
+        List<String> names = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for (Object[] result : results) {
+            int userCount = ((BigInteger) result[1]).intValue();
+            String range;
+            if (userCount <= 5) {
+                range = "0-5";
+            } else if (userCount <= 10) {
+                range = "6-10";
+            } else if (userCount <= 15) {
+                range = "11-15";
+            } else if (userCount <=20) {
+                range = "16-20";
+            } else if (userCount <= 25) {
+                range = "21-25";
+            } else if (userCount <= 30) {
+                range = "26-30";
+            }
+            else {
+                range = "30+";
+            }
+            distribution.put(range, distribution.getOrDefault(range, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> m : distribution.entrySet()) {
+            names.add(m.getKey());
+            values.add((double) m.getValue());
+        }
+        ReturnJSON returnJSON = new ReturnJSON(names, values);
+        return getJSONString(returnJSON);
+    }
 
     // Q11: 从 问 题 回 答 者 (who post answers) 和 评 论 者 (who post comment)两个角度进行统计 (4)
     // 获取每个用户的回答数
@@ -245,16 +280,74 @@ public class QuestionServiceImpl implements QuestionService {
     // 获取用户回答的分布
     @Override
     public String getUserAnswerCountDistribution() {
-        Map<Integer, Long> distribution = new TreeMap<>();
-        Map<String, Long> answerCountsPerUser = getAnswerCountsPerUser();
-        return getString(distribution, answerCountsPerUser);
+        Query query = em.createNativeQuery("SELECT post_id, COUNT(Distinct user_id)From (SELECT id as post_id, user_id From questions UNION ALL SELECT question_id as post_id, user_id From answers) as ans_contribution GROUP BY post_id;");
+        List<Object[]> results = query.getResultList();
+        Map<String, Integer> distribution = new HashMap<>();
+        List<String> names = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for (Object[] result : results) {
+            int userCount = ((BigInteger) result[1]).intValue();
+            String range;
+            if (userCount <= 5) {
+                range = "0-5";
+            } else if (userCount <= 10) {
+                range = "6-10";
+            } else if (userCount <= 15) {
+                range = "11-15";
+            } else if (userCount <=20) {
+                range = "16-20";
+            } else if (userCount <= 25) {
+                range = "21-25";
+            } else if (userCount <= 30) {
+                range = "26-30";
+            }
+            else {
+                range = "30+";
+            }
+            distribution.put(range, distribution.getOrDefault(range, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> m : distribution.entrySet()) {
+            names.add(m.getKey());
+            values.add((double) m.getValue());
+        }
+        ReturnJSON returnJSON = new ReturnJSON(names, values);
+        return getJSONString(returnJSON);
     }
     //获取用户评论的分布
     @Override
     public String getUserCommentCountDistribution() {
-        Map<Integer, Long> distribution = new TreeMap<>();
-        Map<String, Long> commentCountsPerUser = getCommentCountsPerUser();
-        return getString(distribution, commentCountsPerUser);
+        Query query = em.createNativeQuery("SELECT post_id, COUNT(Distinct user_id)From (SELECT id as post_id, user_id From questions UNION ALL SELECT post_id as post_id, user_id From comments) as ans_contribution GROUP BY post_id;");
+        List<Object[]> results = query.getResultList();
+        Map<String, Integer> distribution = new HashMap<>();
+        List<String> names = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for (Object[] result : results) {
+            int userCount = ((BigInteger) result[1]).intValue();
+            String range;
+            if (userCount <= 5) {
+                range = "0-5";
+            } else if (userCount <= 10) {
+                range = "6-10";
+            } else if (userCount <= 15) {
+                range = "11-15";
+            } else if (userCount <=20) {
+                range = "16-20";
+            } else if (userCount <= 25) {
+                range = "21-25";
+            } else if (userCount <= 30) {
+                range = "26-30";
+            }
+            else {
+                range = "30+";
+            }
+            distribution.put(range, distribution.getOrDefault(range, 0) + 1);
+        }
+        for (Map.Entry<String, Integer> m : distribution.entrySet()) {
+            names.add(m.getKey());
+            values.add((double) m.getValue());
+        }
+        ReturnJSON returnJSON = new ReturnJSON(names, values);
+        return getJSONString(returnJSON);
     }
 
     // 将回答或评论的分布返回为JSON字符串

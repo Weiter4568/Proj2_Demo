@@ -76,6 +76,12 @@ public class QuestionController {
         return questionService.getMostViewedTagCombos();
     }
 
+    @GetMapping("/user-thread-count-distribution")
+    @ResponseBody
+    public String getUserThreadCountDistribution(){
+        return questionService.getUserThreadDistribution();
+    }
+
     @GetMapping("/user-answer-count-distribution")
     @ResponseBody
     public String getUserAnswerCountDistribution() {
@@ -87,7 +93,6 @@ public class QuestionController {
     public String getUserCommentCountDistribution() {
         return questionService.getUserCommentCountDistribution();
     }
-
 
 
 }

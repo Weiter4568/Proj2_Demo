@@ -10,7 +10,7 @@ public interface QuestionService {
     String getMostUpvotedTags();
     String getMostUpvotedTagCombos();
     String getMostViewedTagCombos();
+    String getUserThreadDistribution();
     String getUserAnswerCountDistribution();
     String getUserCommentCountDistribution();
-
 }
