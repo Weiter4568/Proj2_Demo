@@ -77,7 +77,7 @@ public class QuestionServiceImpl implements QuestionService {
         List<Double> values = new ArrayList<>();
         for (Object[] objects : resultList){
             names.add((String) objects[0]);
-            values.add((double) objects[1]);
+            values.add(((BigInteger)objects[1]).doubleValue());
         }
         ReturnJSON returnJSON = new ReturnJSON(names, values);
 
@@ -107,7 +107,7 @@ public class QuestionServiceImpl implements QuestionService {
         List <Double> values = new ArrayList<>();
         for (Object[] result : objects) {
             names.add((String) result[0]);
-            values.add( ((double) result[1]));
+            values.add( ((BigInteger) result[1]).doubleValue());
         }
         ReturnJSON returnJSON = new ReturnJSON(names, values);
         return getJSONString(returnJSON);
@@ -120,7 +120,7 @@ public class QuestionServiceImpl implements QuestionService {
         List<String> names = new ArrayList<>();
         List<Double> values = new ArrayList<>();
         names.add("Non-Answered with Higher Votes");
-        names.add("Answered with Lower Votes");
+        names.add("Answered with Higher Votes");
         values.add((double)query.getSingleResult());
         values.add(1 - (double)query.getSingleResult());
         ReturnJSON returnJSON = new ReturnJSON(names, values);

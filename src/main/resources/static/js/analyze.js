@@ -12,7 +12,7 @@ function showComponent(component) {
     if (component === 'component1') {
         getPieChart('number-container', "No-Answer-Questions Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/unansweredPercentage");
     } else if (component === 'component2') {
-        getPanel('number-container', "Average & Max Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/answerStats");
+        getPanel('number-container', "Average & Max Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/answerStats", 100);
     } else if (component === 'component3') {
         getBarChart('number-container', "Distribution of Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/answerCountDistribution");
     } else if (component === 'component4') {
@@ -78,6 +78,7 @@ function getPieChart(containerName, title, subtitle, url) {
 function getPanel(containerName, title, subtitle, url, max) {
     fetchJson(url).then(data => {
         echarts.dispose(document.getElementById(containerName))
+        console.log(data)
         const myChart = echarts.init(document.getElementById(containerName))
         const gaugeData = [{
             value: data["value"][0].toFixed(2), name: 'Average Answers', title: {

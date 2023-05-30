@@ -1,0 +1,12 @@
+Q1:
+localhost:9090/api/questions/unansweredPercentage
+Q2:
+localhost:9090/api/questions/answerStats
+Q3:
+localhost:9090/api/questions/answerCountDistribution
+Q4:
+localhost:9090/api/questions/acceptedPercentage
+Q5:
+localhost:9090/api/questions/acceptedAnswerInterval
+
+

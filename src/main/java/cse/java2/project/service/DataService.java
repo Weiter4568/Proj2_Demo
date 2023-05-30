@@ -57,7 +57,7 @@ public class DataService {
         // Construct the API endpoint URL
         String url = "https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&tagged=java&filter=withbody&site=stackoverflow&pagesize=100&&key=JIOpBoY6dilGh0AY)KI*NA((&page=";
 
-        for (int i = 1; i <= 1; i++) {
+        for (int i = 1; i <= 10; i++) {
             String requestURL = url;
             requestURL += i;
             try (CloseableHttpResponse response = getCloseableHttpResponse(requestURL, client) ){
