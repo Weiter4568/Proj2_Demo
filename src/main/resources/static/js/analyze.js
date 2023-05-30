@@ -147,7 +147,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, {
                 top: '100%'
             }], series: {
-                type: 'line', showSymbol: false, data: data["value"].slice(0, 20).toFixed(2),
+                type: 'line', showSymbol: false, data: data["value"].slice(0, 20).map(num => num.toFixed(2)),
             }
         }
         myChart.setOption(option)
@@ -168,7 +168,7 @@ function getBarChart(containerName, title, subtitle, url) {
             }, yAxis: {
                 type: 'value'
             }, series: [{
-                data: data["value"].slice(0, 20).toFixed(2), type: 'bar'
+                data: data["value"].slice(0, 20).map(num => num.toFixed(2)), type: 'bar'
             }]
         }
         myChart.setOption(option)
