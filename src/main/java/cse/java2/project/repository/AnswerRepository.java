@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    @Query("SELECT COUNT(a), a.userID FROM Answer a GROUP BY a.userID")
-    List<Object[]> countAnswersPerUser();
+  @Query("SELECT COUNT(a), a.userID FROM Answer a GROUP BY a.userID")
+  List<Object[]> countAnswersPerUser();
 }

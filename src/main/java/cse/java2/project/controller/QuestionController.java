@@ -15,96 +15,94 @@ import java.util.Map;
 @RequestMapping("/api/questions")
 public class QuestionController {
 
-    private QuestionService questionService;
+  private final QuestionService questionService;
 
-    @Autowired
-    public QuestionController(QuestionService questionService) {
-        this.questionService = questionService;
-    }
+  @Autowired
+  public QuestionController(QuestionService questionService) {
+    this.questionService = questionService;
+  }
 
-    @GetMapping("/unansweredPercentage")
-    @ResponseBody
-    public String getUnansweredPercentage() {
-        return questionService.getPercentageOfUnansweredQuestions();
-    }
+  @GetMapping("/unansweredPercentage")
+  @ResponseBody
+  public String getUnansweredPercentage() {
+    return questionService.getPercentageOfUnansweredQuestions();
+  }
 
-    @GetMapping("/answerStats")
-    @ResponseBody
-    public String getAnswerStats() {
-        return questionService.getAverageAndMaxAnswerCount();
-    }
+  @GetMapping("/answerStats")
+  @ResponseBody
+  public String getAnswerStats() {
+    return questionService.getAverageAndMaxAnswerCount();
+  }
 
-    @GetMapping("/answerCountDistribution")
-    @ResponseBody
-    public String getAnswerCountDistribution() {
-        return questionService.getAnswerCountDistribution();
-    }
+  @GetMapping("/answerCountDistribution")
+  @ResponseBody
+  public String getAnswerCountDistribution() {
+    return questionService.getAnswerCountDistribution();
+  }
 
-    @GetMapping("/acceptedPercentage")
-    @ResponseBody
-    public String getAcceptedPercentage() {
-        return questionService.getPercentageOfAcceptedAnswers();
-    }
+  @GetMapping("/acceptedPercentage")
+  @ResponseBody
+  public String getAcceptedPercentage() {
+    return questionService.getPercentageOfAcceptedAnswers();
+  }
 
-    @GetMapping("/acceptedAnswerInterval")
-    @ResponseBody
-    public String getAcceptedAnswerInterval() {
-        return questionService.getAcceptedAnswerInterval();
-    }
+  @GetMapping("/acceptedAnswerInterval")
+  @ResponseBody
+  public String getAcceptedAnswerInterval() {
+    return questionService.getAcceptedAnswerInterval();
+  }
 
-    @GetMapping("/nonAcceptedHigherUpvotesPercentage")
-    @ResponseBody
-    public String getNonAcceptedHigherUpvotesPercentage() {
-        return questionService.getPercentageOfQuestionsWhereNonAcceptedAnswerHasHigherScore();
-    }
+  @GetMapping("/nonAcceptedHigherUpvotesPercentage")
+  @ResponseBody
+  public String getNonAcceptedHigherUpvotesPercentage() {
+    return questionService.getPercentageOfQuestionsWhereNonAcceptedAnswerHasHigherScore();
+  }
 
-    @GetMapping("/most-upvoted-tags")
-    @ResponseBody
-    public String getMostUpvotedTags() {
-        return questionService.getMostUpvotedTags();
-    }
+  @GetMapping("/most-upvoted-tags")
+  @ResponseBody
+  public String getMostUpvotedTags() {
+    return questionService.getMostUpvotedTags();
+  }
 
-    @GetMapping("/most-upvoted-tag-combos")
-    @ResponseBody
-    public String getMostUpvotedTagCombos() {
-        return questionService.getMostUpvotedTagCombos();
-    }
+  @GetMapping("/most-upvoted-tag-combos")
+  @ResponseBody
+  public String getMostUpvotedTagCombos() {
+    return questionService.getMostUpvotedTagCombos();
+  }
 
-    @GetMapping("/most-viewed-tag-combos")
-    @ResponseBody
-    public String getMostViewedTagCombos() {
-        return questionService.getMostViewedTagCombos();
-    }
+  @GetMapping("/most-viewed-tag-combos")
+  @ResponseBody
+  public String getMostViewedTagCombos() {
+    return questionService.getMostViewedTagCombos();
+  }
 
-    @GetMapping("/user-thread-count-distribution")
-    @ResponseBody
-    public String getUserThreadCountDistribution(){
-        return questionService.getUserThreadDistribution();
-    }
+  @GetMapping("/user-thread-count-distribution")
+  @ResponseBody
+  public String getUserThreadCountDistribution() {
+    return questionService.getUserThreadDistribution();
+  }
 
-    @GetMapping("/user-answer-count-distribution")
-    @ResponseBody
-    public String getUserAnswerCountDistribution() {
-        return questionService.getUserAnswerCountDistribution();
-    }
+  @GetMapping("/user-answer-count-distribution")
+  @ResponseBody
+  public String getUserAnswerCountDistribution() {
+    return questionService.getUserAnswerCountDistribution();
+  }
 
-    @GetMapping("/user-comment-count-distribution")
-    @ResponseBody
-    public String getUserCommentCountDistribution() {
-        return questionService.getUserCommentCountDistribution();
-    }
+  @GetMapping("/user-comment-count-distribution")
+  @ResponseBody
+  public String getUserCommentCountDistribution() {
+    return questionService.getUserCommentCountDistribution();
+  }
 
-    @GetMapping("/most-active-users")
-    @ResponseBody
-    public String getMostActiveUsers() {
-        return questionService.getMostActiveUsers();
-    }
+  @GetMapping("/most-active-users")
+  @ResponseBody
+  public String getMostActiveUsers() {
+    return questionService.getMostActiveUsers();
+  }
 
-    @GetMapping("/api-stats")
-    @ResponseBody
-    public String getFrequentAPIs() {
-        return questionService.getFrequentAPIs();
-    }
-
-
+  @GetMapping("/api-stats")
+  @ResponseBody
+  public String getFrequentAPIs() {
+    return questionService.getFrequentAPIs();
+  }
 }

@@ -8,12 +8,11 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    @Id
-    private Long id;
+  @Id private Long id;
 
-    private String displayName;
-    private String location;
-    private Integer reputation;
+  private String displayName;
+  private String location;
+  private Integer reputation;
 
-    // getters and setters
+  // getters and setters
 }

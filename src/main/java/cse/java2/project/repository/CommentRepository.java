@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query("SELECT COUNT(c), c.userId FROM Comment c GROUP BY c.userId")
-    List<Object[]> countCommentsPerUser();
+  @Query("SELECT COUNT(c), c.userId FROM Comment c GROUP BY c.userId")
+  List<Object[]> countCommentsPerUser();
 }

@@ -12,20 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/data")
 public class DataController {
 
-    private final DataService dataService;
+  private final DataService dataService;
 
-    @Autowired
-    public DataController(DataService dataService) {
-        this.dataService = dataService;
-    }
+  @Autowired
+  public DataController(DataService dataService) {
+    this.dataService = dataService;
+  }
 
-    @GetMapping("/fetch")
-    public ResponseEntity<String> fetchData() {
-        try {
-            dataService.fetchAndStoreData();
-            return ResponseEntity.ok("Data fetching and storing process initiated successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("An error occurred while initiating the data fetching and storing process: " + e.getMessage());
-        }
+  @GetMapping("/fetch")
+  public ResponseEntity<String> fetchData() {
+    try {
+      dataService.fetchAndStoreData();
+      return ResponseEntity.ok("Data fetching and storing process initiated successfully.");
+    } catch (Exception e) {
+      return ResponseEntity.status(500)
+          .body(
+              "An error occurred while initiating the data fetching and storing process: "
+                  + e.getMessage());
     }
+  }
 }
