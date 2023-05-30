@@ -192,35 +192,42 @@ async function getDoubleRotateBarChart(containerName, title1, title2, url1, url2
             trigger: 'axis'
         }, {
             trigger: 'axis', gridIndex: 1
-        }], yAxis: [{
-            type: 'category', data: data1.then()data1["name"].slice(0, 20).reverse(), axisLabel: {
-                interval: 'auto', rotate: 45
-            }
-        }, {
-            type: 'category', data: data2["name"].slice(0, 20).reverse(), axisLabel: {
-                interval: 'auto', rotate: 45, gridIndex: 1
-            }
         }], xAxis: [{
             type: 'value'
         }, {
             type: 'value', gridIndex: 1
-        }], series: [{
-            data: data1["value"].slice(0, 20).map(num => num.toFixed(2)).reverse(),
-            type: 'bar',
-            xAxisIndex: 0,
-            yAxisIndex: 0
-        }, {
-            data: data2["value"].slice(0, 20).map(num => num.toFixed(2)).reverse(),
-            type: 'bar',
-            gridIndex: 1,
-            xAxisIndex: 1,
-            yAxisIndex: 1
         }], grid: [{
             top: '10%', bottom: '50%'
         }, {
             top: '60%', bottom: '10%'
-        }]
+        }], yAxis: [], series: []
     }
+    data1.then(data => {
+        option.yAxis.push({
+            type: 'category', data: data["name"].slice(0, 20).reverse(), axisLabel: {
+                interval: 'auto', rotate: 45
+            }
+        })
+        option.series.push({
+            data: data["value"].slice(0, 20).map(num => num.toFixed(2)).reverse(),
+            type: 'bar',
+            xAxisIndex: 0,
+            yAxisIndex: 0
+        })
+    })
+    data2.then(data => {
+        option.yAxis.push({
+            type: 'category', data: data["name"].slice(0, 20).reverse(), axisLabel: {
+                interval: 'auto', rotate: 45, gridIndex: 1
+            }
+        })
+        option.series.push({
+            data: data["value"].slice(0, 20).map(num => num.toFixed(2)).reverse(),
+            type: 'bar',
+            xAxisIndex: 1,
+            yAxisIndex: 1
+        })
+    })
     myChart.setOption(option)
 }
 
