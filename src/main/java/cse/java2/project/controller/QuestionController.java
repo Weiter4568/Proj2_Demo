@@ -94,5 +94,12 @@ public class QuestionController {
         return questionService.getUserCommentCountDistribution();
     }
 
+    @GetMapping("/most-active-users")
+    @ResponseBody
+    public String getMostActiveUsers() {
+        return questionService.getMostActiveUsers();
+    }
+
+
 
 }

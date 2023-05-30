@@ -1,13 +1,11 @@
 package cse.java2.project.service;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import cse.java2.project.Interfaces.QuestionService;
 import cse.java2.project.JSON_Model.*;
 import cse.java2.project.repository.AnswerRepository;
 import cse.java2.project.repository.CommentRepository;
+import cse.java2.project.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
@@ -15,7 +13,6 @@ import javax.persistence.Query;
 import javax.persistence.Tuple;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.KeyStore;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,12 +22,15 @@ public class QuestionServiceImpl implements QuestionService {
     private EntityManager em;
     private final AnswerRepository answerRepository;
     private final CommentRepository commentRepository;
+    private final QuestionRepository questionRepository;
 
     @Autowired
-    public QuestionServiceImpl(EntityManager em, AnswerRepository answerRepository, CommentRepository commentRepository) {
+    public QuestionServiceImpl(EntityManager em, AnswerRepository answerRepository, CommentRepository commentRepository,
+                               QuestionRepository questionRepository) {
         this.em = em;
         this.answerRepository = answerRepository;
         this.commentRepository = commentRepository;
+        this.questionRepository = questionRepository;
     }
 
     // Q1: 展示没有答案的 questions 的百分比 (4)
@@ -260,23 +260,6 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     // Q11: 从 问 题 回 答 者 (who post answers) 和 评 论 者 (who post comment)两个角度进行统计 (4)
-    // 获取每个用户的回答数
-    public Map<String, Long> getAnswerCountsPerUser() {
-        return answerRepository.countAnswersPerUser().stream()
-                .collect(Collectors.toMap(
-                        objs ->  objs[1].toString(),
-                        objs -> (Long) objs[0]
-                ));
-    }
-    // 获取每个用户的评论数
-    public Map<String, Long> getCommentCountsPerUser() {
-        return commentRepository.countCommentsPerUser().stream()
-                .collect(Collectors.toMap(
-                        objs -> objs[1].toString(),
-                        objs -> (Long) objs[0]
-                ));
-    }
-
     // 获取用户回答的分布
     @Override
     public String getUserAnswerCountDistribution() {
@@ -345,6 +328,57 @@ public class QuestionServiceImpl implements QuestionService {
         for (Map.Entry<String, Integer> m : distribution.entrySet()) {
             names.add(m.getKey());
             values.add((double) m.getValue());
+        }
+        ReturnJSON returnJSON = new ReturnJSON(names, values);
+        return getJSONString(returnJSON);
+    }
+
+
+    // 获取每个用户的提问数
+    public Map<String, Long> getQuestionCountsPerUser() {
+        return questionRepository.countQuestionsPerUser().stream()
+                .collect(Collectors.toMap(
+                        objs -> objs[1].toString(),
+                        objs -> (Long) objs[0]
+                ));
+    }
+    // 获取每个用户的回答数
+    public Map<String, Long> getAnswerCountsPerUser() {
+        return answerRepository.countAnswersPerUser().stream()
+                .collect(Collectors.toMap(
+                        objs ->  objs[1].toString(),
+                        objs -> (Long) objs[0]
+                ));
+    }
+    // 获取每个用户的评论数
+    public Map<String, Long> getCommentCountsPerUser() {
+        return commentRepository.countCommentsPerUser().stream()
+                .collect(Collectors.toMap(
+                        objs -> objs[1].toString(),
+                        objs -> (Long) objs[0]
+                ));
+    }
+
+    @Override
+    public String getMostActiveUsers(){
+        Map<String, Long> quemap = getQuestionCountsPerUser();
+        Map<String, Long> ansmap = getAnswerCountsPerUser();
+        Map<String, Long> commap = getCommentCountsPerUser();
+        Map<String, Long> userActivity = new HashMap<>();
+        for(Map.Entry<String, Long> m : quemap.entrySet()) {
+            userActivity.put(m.getKey(), userActivity.getOrDefault(m.getKey(), 0L) + m.getValue());
+        }
+        for(Map.Entry<String, Long> m : ansmap.entrySet()){
+            userActivity.put(m.getKey(), userActivity.getOrDefault(m.getKey(), 0L) + m.getValue());
+        }
+        for (Map.Entry<String, Long> m : commap.entrySet()) {
+            userActivity.put(m.getKey(), userActivity.getOrDefault(m.getKey(), 0L) + m.getValue());
+        }
+        List<String> names = new ArrayList<>();
+        List<Double> values = new ArrayList<>();
+        for (Map.Entry<String, Long> m : userActivity.entrySet()) {
+            names.add(m.getKey());
+            values.add(m.getValue().doubleValue());
         }
         ReturnJSON returnJSON = new ReturnJSON(names, values);
         return getJSONString(returnJSON);

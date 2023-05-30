@@ -13,4 +13,5 @@ public interface QuestionService {
     String getUserThreadDistribution();
     String getUserAnswerCountDistribution();
     String getUserCommentCountDistribution();
+    String getMostActiveUsers();
 }
