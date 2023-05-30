@@ -15,29 +15,29 @@ function showComponent(component) {
     const userContainer = document.getElementById('user-container')
     // 根据选择的组件名称进行逻辑判断，并在组件容器中显示相应的内容
     if (component === 'component1') {
-        getPieChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
+        getPieChart('number-container', "No-Answer-Questions Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/unansweredPercentage");
     } else if (component === 'component2') {
-        getPanel('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/b");
+        getPanel('number-container', "Average & Max Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/answerStats");
     } else if (component === 'component3') {
-        getBarChart('number-container', "Percentage of No-Answer-Questions", "Total Questions: 1000", "http://localhost:9090/test/number/a");
+        getBarChart('number-container', "Distribution of Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/answerCountDistribution");
     } else if (component === 'component4') {
-        answerContainer.innerHTML = 'This is Component 4.'
+        getPieChart('accept-container', "Accept Answer Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/acceptedPercentage");
     } else if (component === 'component5') {
-        answerContainer.innerHTML = 'This is Component 5.'
+        getLineChart('accept-container', "Distribution of Solve Time", "Total Questions: 1000", "http://localhost:9090/api/questions/acceptedAnswerInterval");
     } else if (component === 'component6') {
-        answerContainer.innerHTML = 'This is Component 6.'
+        getPieChart('accept-container', "Upvote Comparison Percentage", "Total Questions: 1000", "http://localhost:9090/api/questions/nonAcceptedHigherUpvotesPercentage");
     } else if (component === 'component7') {
-        tagContainer.innerHTML = 'This is Component 7.'
+        getBarChart('tag-container', "Tags with 'JAVA'", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tags");
     } else if (component === 'component8') {
-        tagContainer.innerHTML = 'This is Component 8.'
+        getLineChart('tag-container', "Tags for more Upvote", "Total Questions: 1000", "http://localhost:9090/api/questions/most-upvoted-tag-combos");
     } else if (component === 'component9') {
-        tagContainer.innerHTML = 'This is Component 9.'
+        getLineChart('tag-container', "Tags for more Views", "Total Questions: 1000", "http://localhost:9090/api/questions/most-viewed-tag-combos");
     } else if (component === 'componentX') {
-        userContainer.innerHTML = 'This is Component 10.'
+        getLineChart('user-container', "Distribution of User Thread Count", "Total Questions: 1000", "http://localhost:9090/api/questions/user-thread-count-distribution");
     } else if (component === 'componentY') {
-        userContainer.innerHTML = 'This is Component 11.'
+        getBarChart('user-container', "Distribution of who Post Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/user-answer-count-distribution");
     } else if (component === 'componentZ') {
-        userContainer.innerHTML = 'This is Component 12.'
+        getBarChart('user-container', "Distribution of who Post Comments", "Total Questions: 1000", "http://localhost:9090/api/questions/most-active-users");
     }
 }
 
