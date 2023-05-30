@@ -32,7 +32,7 @@ function showComponent(component) {
     } else if (component === 'componentY') {
         getBarChart('user-container', "Distribution of who Post Answers", "Total Questions: 1000", "http://localhost:9090/api/questions/user-answer-count-distribution");
     } else if (component === 'componentZ') {
-        getBarChart('user-container', "Distribution of who Post Comments", "Total Questions: 1000", "http://localhost:9090/api/questions/most-active-users");
+        getPieChart('user-container', "Distribution of who Post Comments", "Total Questions: 1000", "http://localhost:9090/api/questions/most-active-users");
     }
 }
 
@@ -137,7 +137,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, tooltip: {
                 trigger: 'axis'
             }, xAxis: [{
-                data: data["name"].slice(20)
+                data: data["name"].slice(0, 20)
             }, {
                 data: data["name"], gridIndex: 1
             }], yAxis: [{}, {
@@ -147,7 +147,7 @@ function getLineChart(containerName, title, subtitle, url) {
             }, {
                 top: '100%'
             }], series: {
-                type: 'line', showSymbol: false, data: data["value"].slice(20).toFixed(2),
+                type: 'line', showSymbol: false, data: data["value"].slice(0, 20).toFixed(2),
             }
         }
         myChart.setOption(option)
@@ -168,7 +168,7 @@ function getBarChart(containerName, title, subtitle, url) {
             }, yAxis: {
                 type: 'value'
             }, series: [{
-                data: data["value"].slice(20).toFixed(2), type: 'bar'
+                data: data["value"].slice(0, 20).toFixed(2), type: 'bar'
             }]
         }
         myChart.setOption(option)
