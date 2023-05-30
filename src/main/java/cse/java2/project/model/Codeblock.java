@@ -3,35 +3,25 @@ package cse.java2.project.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "codeblocks")
+public class Codeblock {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "post_id")
     private Integer postId;
 
-    @Column(name = "score")
-    private Integer score;
+    @Column(name = "code_block")
+    private String codeBlock;
 
-    @Column(name = "user_id")
-    private Integer userId;
-
-    public Integer getUserId() {
-        return userId;
+    public String getCodeBlock() {
+        return codeBlock;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
+    public void setCodeBlock(String codeBlock) {
+        this.codeBlock = codeBlock;
     }
 
     public Integer getPostId() {

@@ -30,6 +30,17 @@ public class Question {
     @Column(name = "score")
     private Integer score;
 
+    @Column(name = "view_cnt")
+    private Integer viewCnt;
+
+    public Integer getViewCnt() {
+        return viewCnt;
+    }
+
+    public void setViewCnt(Integer viewCnt) {
+        this.viewCnt = viewCnt;
+    }
+
     public Integer getScore() {
         return score;
     }

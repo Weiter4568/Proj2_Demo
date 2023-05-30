@@ -1,9 +1,6 @@
 package cse.java2.project.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "answers")
@@ -24,6 +21,17 @@ public class Answer {
 
     @Column(name = "user_id")
     private Integer userID;
+
+    @Column(name = "accepted_date")
+    private Integer acceptedDate;
+
+    public Integer getAcceptedDate() {
+        return acceptedDate;
+    }
+
+    public void setAcceptedDate(Integer acceptedDate) {
+        this.acceptedDate = acceptedDate;
+    }
 
     public void setAccepted(Boolean accepted) {
         isAccepted = accepted;
